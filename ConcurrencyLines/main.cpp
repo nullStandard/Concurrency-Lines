@@ -4,16 +4,16 @@
 
 int main(int argc, char* argv[])
 {
-	Timer t;
+	fs::path path{ argc >= 2 ? argv[1] : fs::current_path() };
 
+	Timer t;
 	std::vector<fs::path> files;
 
-	fs::path path("C:\\Program Files\\boost_1_75_0\\boost");
-
+	//searching for files
 	folderTree(path, files);
 	Starter strt(files);
 	strt.start();
 	
-	printStatistic(files, strt, t);
+	saveInFile(files, strt, t);
 	return 0;
 }

@@ -13,7 +13,6 @@ class Starter : public ProcessingData::InternalAbstraction
 	std::mutex mtx;
 
 public:
-	//маю тут мати поле з тотал результатами
 	struct
 	{
 		long long total_blank = 0;
@@ -23,8 +22,6 @@ public:
 
 	Starter(std::vector<fs::path>& files) : m_files(files) {}
 
-	//отримує результати
-	// приймає структуру з локальним підрахунком
 	void did_recieved_results(ProcessingData::LocalCount& results) override;
 	
 	void start();

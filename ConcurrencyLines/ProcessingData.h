@@ -21,7 +21,7 @@ public:
 	};
 
 	InternalAbstraction* InterAbstr_ptr;
-	ProcessingData(InternalAbstraction* p_L) : InterAbstr_ptr(p_L) {}
+	ProcessingData(InternalAbstraction* starter) : InterAbstr_ptr(starter) {}
 
 	void processData(const fs::path& FilePath);
 };
