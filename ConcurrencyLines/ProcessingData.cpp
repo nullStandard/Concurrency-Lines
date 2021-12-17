@@ -1,25 +1,43 @@
 #include "ProcessingData.h"
 
 void ProcessingData::processData(const fs::path& FilePath)
-
 {
 	LocalCount counter;
 	std::ifstream in(FilePath);
 	std::string line;
+
+	bool great_comment = false;
 	while (std::getline(in, line))
 	{
-		if (line.empty() || (line.find_first_not_of(' ') == std::string::npos))
+		if (!great_comment)
 		{
-			counter.count_blank++;
-		}
-		else
-		{
-			if (line.find("//") != std::string::npos)
+			if (line.empty() || (line.find_first_not_of(' ') == std::string::npos))
+			{
+				counter.count_blank++;
+			}
+			else if (line.find("//") != std::string::npos)
 			{
 				counter.count_comm++;
 			}
-			counter.count_phys++;
+			else if (line.find("/*") != std::string::npos)
+			{
+				counter.count_comm++;
+				great_comment = true;
+			}
+			else
+			{
+				counter.count_phys++;
+			}
 		}
+		else
+		{
+			counter.count_comm++;
+			if (line.find("*/") != std::string::npos)
+			{
+				great_comment = false;
+			}
+		}
+
 	}
 	in.close();
 
